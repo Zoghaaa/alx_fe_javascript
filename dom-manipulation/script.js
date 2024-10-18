@@ -11,7 +11,7 @@ let quotes = [
   
     // Update the DOM by setting the text content of the 'quoteDisplay' div
     const quoteDisplay = document.getElementById('quoteDisplay');
-    quoteDisplay.textContent = `"${randomQuote.text}" - ${randomQuote.category}`;
+    quoteDisplay.innerHTML = `"${randomQuote.text}" - ${randomQuote.category}`;
   }
   
 
