@@ -13,7 +13,7 @@ const quotes = [
   
     // Display the quote in the 'quoteDisplay' div using textContent
     const quoteDisplay = document.getElementById('quoteDisplay');
-    quoteDisplay.textContent = `"${randomQuote.text}" - ${randomQuote.category}`;
+    quoteDisplay.innerHTML = `"${randomQuote.text}" - ${randomQuote.category}`;
   }
   
   // Function to dynamically create a form for adding new quotes
