@@ -29,12 +29,23 @@ function showRandomQuote() {
   quoteDisplay.textContent = `"${randomQuote.text}" - ${randomQuote.category}`;
 }
 
+// Show notifications
+function showNotification(message) {
+  const notification = document.getElementById('notification');
+  notification.textContent = message;
+  notification.style.display = 'block';
+  setTimeout(() => {
+    notification.style.display = 'none';
+  }, 3000);
+}
+
 // Fetch quotes from the "server"
 async function fetchQuotesFromServer() {
   try {
     const response = await fetch(API_URL);
     const serverQuotes = await response.json();
     mergeQuotes(serverQuotes);
+    showNotification("Quotes synced with server!");
   } catch (error) {
     console.error('Error fetching quotes from server:', error);
   }
@@ -52,6 +63,7 @@ async function postQuoteToServer(quote) {
     });
     const serverResponse = await response.json();
     console.log('Quote posted to server:', serverResponse);
+    showNotification("Quote posted to server!");
   } catch (error) {
     console.error('Error posting quote to server:', error);
   }
