@@ -1,4 +1,6 @@
-const API_URL = 'https://jsonplaceholder.typicode.com/posts'; // Mock API for simulation
+// script.js
+
+const API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 let quotes = [
   { text: "The only limit to our realization of tomorrow is our doubts of today.", category: "Motivation" },
@@ -17,6 +19,14 @@ function loadQuotes() {
   if (savedQuotes) {
     quotes = JSON.parse(savedQuotes);
   }
+}
+
+// Display a random quote
+function showRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const randomQuote = quotes[randomIndex];
+  const quoteDisplay = document.getElementById('quoteDisplay');
+  quoteDisplay.textContent = `"${randomQuote.text}" - ${randomQuote.category}`;
 }
 
 // Fetch quotes from the "server"
@@ -95,16 +105,22 @@ function addQuote() {
   }
 }
 
-// Start periodic data sync with server
-function startDataSync() { 
-  setInterval(fetchQuotesFromServer, 60000); // Sync every 60 seconds
+// Sync quotes with the server (fetch and post)
+async function syncQuotes() {
+  await fetchQuotesFromServer(); // Fetch server quotes
+  quotes.forEach(quote => {
+    postQuoteToServer(quote); // Post each quote to the server
+  });
 }
 
-// Load and sync quotes on page load
+// Start periodic data sync with server
+function startDataSync() {
+  setInterval(syncQuotes, 60000); // Sync every minute
+}
+
+// Initialize the app
 window.onload = function() {
-  loadQuotes();  // Load quotes from local storage
+  loadQuotes(); // Load quotes from local storage
+  document.getElementById('newQuote').addEventListener('click', showRandomQuote);
   startDataSync(); // Start syncing with server
 };
-
-// Event listener for adding quotes
-document.getElementById('addQuoteButton').addEventListener('click', addQuote);
