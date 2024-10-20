@@ -33,7 +33,7 @@ let quotes = [
   
     if (newQuoteText && newQuoteCategory) {
       quotes.push({ text: newQuoteText, category: newQuoteCategory });
-  
+            
       // Save quotes to local storage after adding
       saveQuotes();
   
