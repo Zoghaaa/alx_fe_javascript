@@ -16,7 +16,7 @@ function loadQuotes() {
     quotes = JSON.parse(savedQuotes);
   }
 }
-
+const API_URL = 'https://jsonplaceholder.typicode.com/posts';
 // Fetch quotes from the "server"
 async function fetchQuotesFromServer() {
   try {
